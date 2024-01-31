@@ -1,5 +1,12 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Useful links
+
+[Full stack Next 14 MERN app tutorial](https://youtu.be/zgGhzuBZOQg?si=GDu0L2nxCuF7wTT-)
+[Reusable components](https://ui.shadcn.com/docs/installation/next)
+[Authentication and user management](https://clerk.com/docs/quickstarts/nextjs)
+[Backend (Mongoose)](https://www.mongodb.com/cloud/atlas/register?utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_core_retarget-brand_gic-null_emea-all_ps-all_desktop_eng_lead&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=14412646455&adgroup=131761126492&cq_cmp=14412646455&gad_source=1&gclid=Cj0KCQiA2eKtBhDcARIsAEGTG41o-37Y9PGwOGShzmCFBpJzHtacfMy-1djMYgzXGtoWKXb3Wum09jcaAnF6EALw_wcB)
+
 ## Getting Started
 
 First, run the development server:

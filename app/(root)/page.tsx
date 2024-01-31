@@ -1,4 +1,7 @@
+import MobileNav from '@/components/shared/MobileNav';
+import NavItems from '@/components/shared/NavItems';
 import { Button } from '@/components/ui/button';
+import { SignedIn, UserButton, SignedOut } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -35,7 +38,14 @@ export default function Home() {
         <h2 className="h2-bold">Trusted by 1000 of users</h2>
 
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          Search CategoryFilter
+          <div className="flex w-32 justify-end gap-3">
+            <SignedIn>Table</SignedIn>
+            <SignedOut>
+              <Button asChild className="rounded-full" size="lg">
+                <Link href="/sign-in">Login</Link>
+              </Button>
+            </SignedOut>
+          </div>
         </div>
       </section>
     </>

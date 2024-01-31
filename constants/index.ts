@@ -15,8 +15,8 @@ export const headerLinks = [
 
 export const todoDefaultValues = {
   title: '',
-  description: '',
   project: '',
+  description: '',
   imageUrl: '',
   startDateTime: new Date(),
   endDateTime: new Date(),

@@ -11,6 +11,7 @@ import { CreateUserParams, UpdateUserParams } from '@/types';
 
 export async function createUser(user: CreateUserParams) {
   try {
+    console.log('geraak ik hier?: createUser');
     await connectToDatabase();
 
     const newUser = await User.create(user);
@@ -22,6 +23,7 @@ export async function createUser(user: CreateUserParams) {
 
 export async function getUserById(userId: string) {
   try {
+    console.log('geraak ik hier?: getUserById');
     await connectToDatabase();
 
     const user = await User.findById(userId);
@@ -35,6 +37,7 @@ export async function getUserById(userId: string) {
 
 export async function updateUser(clerkId: string, user: UpdateUserParams) {
   try {
+    console.log('geraak ik hier?: updateUser');
     await connectToDatabase();
 
     const updatedUser = await User.findOneAndUpdate({ clerkId }, user, {
@@ -50,6 +53,7 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {
 
 export async function deleteUser(clerkId: string) {
   try {
+    console.log('geraak ik hier?: deleteUser');
     await connectToDatabase();
 
     // Find user to delete

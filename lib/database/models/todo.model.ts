@@ -7,7 +7,7 @@ export interface ITodo extends Document {
   createdAt: Date;
   imageUrl?: string;
   startDateTime: Date;
-  estimatedHours: number;
+  estimatedHours: string;
   isPrivate: boolean;
   url?: string;
   project?: { _id: string; name: string };
@@ -20,7 +20,7 @@ const TodoSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   imageUrl: { type: String },
   startDateTime: { type: Date, default: Date.now },
-  estimatedHours: { type: Number, default: 0 },
+  estimatedHours: { type: String },
   isPrivate: { type: Boolean, default: false },
   url: { type: String },
   project: { type: Schema.Types.ObjectId, ref: 'Project' },

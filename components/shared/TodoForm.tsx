@@ -163,20 +163,21 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
             name="estimatedHours"
             render={({ field }) => (
               <FormItem className="w-full">
-                <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                  <p className="ml-3 whitespace-nowrap text-grey-600">
-                    Estimated hours:
-                  </p>
-                  <FormControl>
-                    <Input {...field} className="input-field" />
-                  </FormControl>
-                </div>
-
+                <FormControl>
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                    <p className="ml-3 whitespace-nowrap text-grey-600">
+                      Estimated hours:
+                    </p>
+                    <Input {...field} className="input-field" placeholder="0" />
+                  </div>
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
+
+        <div className="flex flex-col gap-5 md:flex-row"></div>
 
         <Button type="submit">Submit</Button>
       </form>

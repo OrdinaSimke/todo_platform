@@ -1,11 +1,20 @@
-import MobileNav from '@/components/shared/MobileNav';
-import NavItems from '@/components/shared/NavItems';
+import Collection from '@/components/shared/Collection';
 import { Button } from '@/components/ui/button';
+import { getAllTodos } from '@/lib/actions/todo.actions';
 import { SignedIn, UserButton, SignedOut } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
+  const todos = await getAllTodos({
+    query: '',
+    project: '',
+    page: 1,
+    limit: 6,
+  });
+
+  console.log('todos', todos);
+
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -39,7 +48,17 @@ export default function Home() {
 
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <div className="flex w-32 justify-end gap-3">
-            <SignedIn>Table</SignedIn>
+            <SignedIn>
+              <Collection
+                data={[]}
+                emptyTitle="No todos found"
+                emptyStateSubtext="Come back later"
+                collectionType="All_Todos"
+                limit={6}
+                page={1}
+                totalPages={2}
+              />
+            </SignedIn>
             <SignedOut>
               <Button asChild className="rounded-full" size="lg">
                 <Link href="/sign-in">Login</Link>

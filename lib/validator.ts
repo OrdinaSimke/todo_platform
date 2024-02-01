@@ -9,7 +9,7 @@ export const todoFormSchema = z.object({
     .min(3, {
       message: 'Description must be at least 3 characters.',
     })
-    .max(400, {
+    .max(1000, {
       message: 'Description must be less than 400 characters.',
     }),
   imageUrl: z.string(),
@@ -17,5 +17,5 @@ export const todoFormSchema = z.object({
   estimatedHours: z.coerce.number().int().positive(),
   projectId: z.string(),
   isPrivate: z.boolean(),
-  url: z.string().url(),
+  url: z.string().url().or(z.literal('')),
 });

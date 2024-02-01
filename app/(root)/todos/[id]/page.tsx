@@ -28,7 +28,9 @@ const TodoDetails = async ({
               src={todo.imageUrl}
               alt="todo image"
               className="h-full min-h-[300px] object-contain object-center cursor-pointer"
-              layout={'fill'}
+              width={1000}
+              height={1000}
+              // layout={'fill'}
             />
           )}
 

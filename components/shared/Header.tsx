@@ -11,7 +11,7 @@ const Header = () => {
       <div className="wrapper flex items-center justify-between">
         <Link href="/" className="w-36">
           <Image
-            src="/assets/images/logo-goku.png"
+            src="/assets/images/logo.svg"
             width={128}
             height={38}
             alt="Todoly logo"

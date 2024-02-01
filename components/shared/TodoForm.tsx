@@ -46,7 +46,7 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
       ? {
           ...todo,
           startDateTime: new Date(todo.startDateTime),
-          projectId: todo.project._id,
+          projectId: todo?.project?._id,
           estimatedHours: parseInt(todo.estimatedHours),
         }
       : todoDefaultValues;

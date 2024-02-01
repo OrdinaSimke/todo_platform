@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Search from '@/components/shared/Search';
 import ProjectFilter from '@/components/shared/ProjectFilter';
-import Filters from '@/components/shared/Filters';
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;

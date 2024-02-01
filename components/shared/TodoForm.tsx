@@ -23,6 +23,7 @@ import { FileUploader } from './FileUploader';
 import { useState } from 'react';
 import Image from 'next/image';
 import DatePicker from 'react-datepicker';
+import { Checkbox } from '@/components/ui/checkbox';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -45,6 +46,7 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
   function onSubmit(values: z.infer<typeof todoFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+
     console.log(values);
   }
 
@@ -61,12 +63,38 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Input
-                    placeholder="Todo title"
-                    {...field}
-                    className="input-field"
-                  />
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-2 py-2">
+                    <Input
+                      placeholder="Todo title"
+                      {...field}
+                      className="input-field"
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="isPrivate"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <div className="flex items-center">
+                              <label className="whitespace-nowrap pr-3 leading-none peer-desabled:cursor-not-allowed peer-disabled:opacity-70">
+                                Private
+                              </label>
+                              <Checkbox
+                                id="isPrivate"
+                                className="mr-2 h-5 w-5 border-2 border-primary-500"
+                                onCheckedChange={field.onChange}
+                                checked={field.value}
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                 </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -78,10 +106,12 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Dropdown
-                    onChangeHandler={field.onChange}
-                    value={field.value}
-                  />
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-2 py-2">
+                    <Dropdown
+                      onChangeHandler={field.onChange}
+                      value={field.value}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,7 +129,7 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
                   <Textarea
                     placeholder="Description"
                     {...field}
-                    className="textarea rounded-2xl"
+                    className="textarea rounded-xl"
                   />
                 </FormControl>
                 <FormMessage />
@@ -132,7 +162,7 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2">
                     <Image
                       src="/assets/icons/calendar.svg"
                       alt="calendar"
@@ -164,11 +194,16 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2">
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       Estimated hours:
                     </p>
-                    <Input {...field} className="input-field" placeholder="0" />
+                    <Input
+                      type="number"
+                      {...field}
+                      className="input-field"
+                      placeholder="0"
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -177,9 +212,43 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
           />
         </div>
 
-        <div className="flex flex-col gap-5 md:flex-row"></div>
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="url"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2">
+                    <Image
+                      src="/assets/icons/link.svg"
+                      alt="calendar"
+                      width={24}
+                      height={24}
+                      className="filter-grey"
+                    />
+                    <Input
+                      placeholder="URL"
+                      {...field}
+                      className="input-field"
+                    />
+                  </div>
+                </FormControl>
 
-        <Button type="submit">Submit</Button>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <Button
+          type="submit"
+          size="lg"
+          disabled={form.formState.isSubmitting}
+          className="button col-span-2 w-full"
+        >
+          {form.formState.isSubmitting ? 'Submitting' : `${type} Todo`}
+        </Button>
       </form>
     </Form>
   );

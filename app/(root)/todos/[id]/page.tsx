@@ -1,3 +1,4 @@
+import ZoomImage from '@/components/shared/ZoomImage';
 import {
   getTodoById,
   getRelatedTodosByProject,
@@ -23,12 +24,11 @@ const TodoDetails = async ({
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
           {todo.imageUrl && (
-            <Image
+            <ZoomImage
               src={todo.imageUrl}
               alt="todo image"
-              width={1000}
-              height={1000}
-              className="h-full min-h-[300px] object-contain object-center"
+              className="h-full min-h-[300px] object-contain object-center cursor-pointer"
+              layout={'fill'}
             />
           )}
 

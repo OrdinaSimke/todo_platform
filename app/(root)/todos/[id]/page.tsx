@@ -27,7 +27,7 @@ const TodoDetails = async ({
             <ZoomImage
               src={todo.imageUrl}
               alt="todo image"
-              className="h-full min-h-[300px] object-contain object-center cursor-pointer"
+              className="h-full min-h-[300px] object-contain object-center cursor-pointer md:p-4 p-2"
               width={1000}
               height={1000}
               // layout={'fill'}

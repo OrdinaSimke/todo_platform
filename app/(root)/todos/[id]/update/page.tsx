@@ -3,7 +3,9 @@ import { getTodoById } from '@/lib/actions/todo.actions';
 import { auth } from '@clerk/nextjs';
 
 type UpdateTodoProps = {
-  id: string;
+  params: {
+    id: string;
+  };
 };
 
 const UpdateTodo = async ({ params: { id } }: UpdateTodoProps) => {

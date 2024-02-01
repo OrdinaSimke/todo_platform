@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Todoly',
   description: 'Todoly is a platform for todo management.',
   icons: {
-    icon: '/assets/images/logo.svg',
+    icon: '/assets/images/logo-goku.png',
   },
 };
 

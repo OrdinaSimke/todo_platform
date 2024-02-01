@@ -17,16 +17,21 @@ const ProjectFilter = () => {
   const [projects, setProjects] = useState<IProject[]>([]);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [projectValue, setProjectValue] = useState<string | null>('');
 
   useEffect(() => {
     const getProjects = async () => {
       const projectList = await getAllProjects();
-
       projectList && setProjects(projectList as IProject[]);
     };
 
     getProjects();
   }, []);
+
+  useEffect(() => {
+    const tmpProjectValue = new URLSearchParams(searchParams).get('project');
+    setProjectValue(tmpProjectValue);
+  }, [searchParams]);
 
   const onSelectProject = (project: string) => {
     let newUrl = '';
@@ -50,7 +55,7 @@ const ProjectFilter = () => {
   return (
     <Select onValueChange={(value: string) => onSelectProject(value)}>
       <SelectTrigger className="select-field">
-        <SelectValue placeholder="Project" />
+        <SelectValue placeholder={projectValue ? projectValue : 'Project'} />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="All" className="select-item p-regular-14">

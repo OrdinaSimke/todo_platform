@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Search from '@/components/shared/Search';
 import ProjectFilter from '@/components/shared/ProjectFilter';
+import Filters from '@/components/shared/Filters';
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
@@ -52,6 +53,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
         <h2 className="h2-bold">Overview of todos</h2>
 
         <div className="flex w-full flex-col gap-5 md:flex-row">
+          {/* <Filters /> */}
           <Search />
           <ProjectFilter />
         </div>

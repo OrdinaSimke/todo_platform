@@ -16,7 +16,7 @@ const Card = ({ todo, hasOrderLink, hidePrice }: CardProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
-  const isTodoCreator = userId === todo.organizer._id.toString();
+  const isTodoCreator = userId === todo?.organizer?._id.toString();
 
   return (
     <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
@@ -46,7 +46,7 @@ const Card = ({ todo, hasOrderLink, hidePrice }: CardProps) => {
         {!hidePrice && (
           <div className="flex gap-2">
             <p className="p-semibold-14 rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
-              {todo.project.name}
+              {todo?.project?.name}
             </p>
           </div>
         )}
@@ -63,7 +63,7 @@ const Card = ({ todo, hasOrderLink, hidePrice }: CardProps) => {
 
         <div className="flex-between w-full">
           <p className="p-medium-14 md:p-medium-16 text-grey-600">
-            {todo.organizer.firstName} {todo.organizer.lastName}
+            {todo?.organizer?.firstName} {todo?.organizer?.lastName}
           </p>
         </div>
       </div>

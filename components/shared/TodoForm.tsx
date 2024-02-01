@@ -19,8 +19,12 @@ import { Input } from '@/components/ui/input';
 import { todoFormSchema } from '@/lib/validator';
 import { todoDefaultValues } from '@/constants';
 import Dropdown from './Dropdown';
-import FileUploader from './FileUploader';
+import { FileUploader } from './FileUploader';
 import { useState } from 'react';
+import Image from 'next/image';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 type TodoFormProps = {
   userId: String;
@@ -70,7 +74,7 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
 
           <FormField
             control={form.control}
-            name="categoryId"
+            name="projectId"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -115,6 +119,59 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
                     setFiles={setFiles}
                   />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="startDateTime"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                    <Image
+                      src="/assets/icons/calendar.svg"
+                      alt="calendar"
+                      width={24}
+                      height={24}
+                      className="filter-grey"
+                    />
+                    <p className="ml-3 whitespace-nowrap text-grey-600">
+                      Start Date:
+                    </p>
+                    <DatePicker
+                      selected={field.value}
+                      onChange={(date: Date) => field.onChange(date)}
+                      showTimeSelect
+                      timeInputLabel="Time"
+                      dateFormat="dd/MM/yyyy hh:mm"
+                      wrapperClassName="datePicker"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="estimatedHours"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                  <p className="ml-3 whitespace-nowrap text-grey-600">
+                    Estimated hours:
+                  </p>
+                  <FormControl>
+                    <Input {...field} className="input-field" />
+                  </FormControl>
+                </div>
+
                 <FormMessage />
               </FormItem>
             )}

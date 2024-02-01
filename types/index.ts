@@ -25,7 +25,7 @@ export type CreateEventParams = {
     imageUrl: string;
     startDateTime: Date;
     endDateTime: Date;
-    categoryId: string;
+    projectId: string;
     price: string;
     isFree: boolean;
     url: string;
@@ -43,7 +43,7 @@ export type UpdateEventParams = {
     location: string;
     startDateTime: Date;
     endDateTime: Date;
-    categoryId: string;
+    projectyId: string;
     price: string;
     isFree: boolean;
     url: string;
@@ -58,7 +58,7 @@ export type DeleteEventParams = {
 
 export type GetAllEventsParams = {
   query: string;
-  category: string;
+  project: string;
   limit: number;
   page: number;
 };
@@ -69,8 +69,8 @@ export type GetEventsByUserParams = {
   page: number;
 };
 
-export type GetRelatedEventsByCategoryParams = {
-  categoryId: string;
+export type GetRelatedEventsByProjectParams = {
+  projectId: string;
   eventId: string;
   limit?: number;
   page: number | string;
@@ -92,15 +92,15 @@ export type Event = {
     firstName: string;
     lastName: string;
   };
-  category: {
+  project: {
     _id: string;
     name: string;
   };
 };
 
-// ====== CATEGORY PARAMS
-export type CreateCategoryParams = {
-  categoryName: string;
+// ====== PROJECT PARAMS
+export type CreateProjectParams = {
+  ProjectName: string;
 };
 
 // ====== ORDER PARAMS

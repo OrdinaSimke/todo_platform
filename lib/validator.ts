@@ -4,9 +4,6 @@ export const todoFormSchema = z.object({
   title: z.string().min(3, {
     message: 'Title must be at least 3 characters.',
   }),
-  project: z.string().min(3, {
-    message: 'Project must be at least 3 characters.',
-  }),
   description: z
     .string()
     .min(3, {
@@ -17,8 +14,8 @@ export const todoFormSchema = z.object({
     }),
   imageUrl: z.string(),
   startDateTime: z.date(),
-  endDateTime: z.date(),
-  categoryId: z.string(),
+  estimatedHours: z.coerce.number().int().positive(),
+  projectId: z.string(),
   isPrivate: z.boolean(),
   url: z.string().url(),
 });

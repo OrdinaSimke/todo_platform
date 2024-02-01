@@ -16,7 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { ICategory } from '@/lib/database/models/category.model';
+import { IProject } from '@/lib/database/models/project.model';
 import { startTransition, useState } from 'react';
 import { Input } from '../ui/input';
 
@@ -26,10 +26,10 @@ type DropdownProps = {
 };
 
 const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [newCategory, setNewCategory] = useState('');
+  const [projects, setProjects] = useState<IProject[]>([]);
+  const [newCProject, setNewProject] = useState('');
 
-  const handleAddCategory = () => {};
+  const handleAddProject = () => {};
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
@@ -37,14 +37,14 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
         <SelectValue placeholder="Project" />
       </SelectTrigger>
       <SelectContent>
-        {categories.length > 0 &&
-          categories.map((category) => (
+        {projects.length > 0 &&
+          projects.map((project) => (
             <SelectItem
-              key={category._id}
-              value={category._id}
+              key={project._id}
+              value={project._id}
               className="select-item p-regular-14"
             >
-              {category.name}
+              {project.name}
             </SelectItem>
           ))}
 
@@ -58,16 +58,16 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
               <AlertDialogDescription>
                 <Input
                   type="text"
-                  placeholder="Category name"
+                  placeholder="Project name"
                   className="input-field mt-3"
-                  onChange={(e) => setNewCategory(e.target.value)}
+                  onChange={(e) => setNewProject(e.target.value)}
                 />
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
-                onClick={() => startTransition(handleAddCategory)}
+                onClick={() => startTransition(handleAddProject)}
               >
                 Add
               </AlertDialogAction>

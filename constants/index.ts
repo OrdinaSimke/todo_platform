@@ -15,12 +15,11 @@ export const headerLinks = [
 
 export const todoDefaultValues = {
   title: '',
-  project: '',
   description: '',
   imageUrl: '',
   startDateTime: new Date(),
-  endDateTime: new Date(),
-  categoryId: '',
+  estimatedHours: 0,
+  projectId: '',
   isPrivate: false,
   url: '',
 };

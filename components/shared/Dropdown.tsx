@@ -17,8 +17,9 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { IProject } from '@/lib/database/models/project.model';
-import { startTransition, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import { Input } from '../ui/input';
+import { createProject, getAllProjects } from '@/lib/actions/project.actions';
 
 type DropdownProps = {
   value?: string;
@@ -27,9 +28,25 @@ type DropdownProps = {
 
 const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
   const [projects, setProjects] = useState<IProject[]>([]);
-  const [newCProject, setNewProject] = useState('');
+  const [newProject, setNewProject] = useState('');
 
-  const handleAddProject = () => {};
+  const handleAddProject = () => {
+    createProject({
+      projectName: newProject.trim(),
+    }).then((project) => {
+      setProjects((prevState) => [...prevState, project]);
+    });
+  };
+
+  useEffect(() => {
+    const getProjects = async () => {
+      const projectList = await getAllProjects();
+
+      projectList && setProjects(projectList as IProject[]);
+    };
+
+    getProjects();
+  }, []);
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
@@ -50,7 +67,7 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
 
         <AlertDialog>
           <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500">
-            Open
+            Add new project
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-white">
             <AlertDialogHeader>

@@ -100,7 +100,7 @@ export type Event = {
 
 // ====== PROJECT PARAMS
 export type CreateProjectParams = {
-  ProjectName: string;
+  projectName: string;
 };
 
 // ====== ORDER PARAMS

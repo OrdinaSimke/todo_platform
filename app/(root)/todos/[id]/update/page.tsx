@@ -1,9 +1,17 @@
 import TodoForm from '@/components/shared/TodoForm';
+import { getTodoById } from '@/lib/actions/todo.actions';
 import { auth } from '@clerk/nextjs';
 
-const UpdateTodo = () => {
+type UpdateTodoProps = {
+  id: string;
+};
+
+const UpdateTodo = async ({ params: { id } }: UpdateTodoProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
+
+  const todo = await getTodoById(id);
+
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py10">
@@ -13,7 +21,7 @@ const UpdateTodo = () => {
       </section>
 
       <div className="wrapper my-8">
-        <TodoForm userId={userId} type="Update" />
+        <TodoForm type="Update" userId={userId} todoId={todo._id} todo={todo} />
       </div>
     </>
   );

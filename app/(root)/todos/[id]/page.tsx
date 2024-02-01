@@ -22,13 +22,15 @@ const TodoDetails = async ({
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
-          <Image
-            src={todo.imageUrl}
-            alt="hero image"
-            width={1000}
-            height={1000}
-            className="h-full min-h-[300px] object-contain object-center"
-          />
+          {todo.imageUrl && (
+            <Image
+              src={todo.imageUrl}
+              alt="todo image"
+              width={1000}
+              height={1000}
+              className="h-full min-h-[300px] object-contain object-center"
+            />
+          )}
 
           <div className="flex w-full flex-col gap-8 p-5 md:p-10">
             <div className="flex flex-col gap-6">
@@ -72,7 +74,9 @@ const TodoDetails = async ({
                   {todo.description}
                 </p>
                 <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">
-                  {todo.url}
+                  <a href={todo.url} target="_blank">
+                    {todo.url}
+                  </a>
                 </p>
               </div>
             </div>

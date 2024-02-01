@@ -28,30 +28,41 @@ import { useUploadThing } from '@/lib/uploadthing';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/navigation';
-import { createTodo } from '@/lib/actions/todo.actions';
+import { createTodo, updateTodo } from '@/lib/actions/todo.actions';
+import { ITodo } from '@/lib/database/models/todo.model';
 
 type TodoFormProps = {
   userId: string;
   type: 'Create' | 'Update';
+  todo?: ITodo;
+  todoId?: string;
 };
 
-const TodoForm = ({ userId, type }: TodoFormProps) => {
+const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const initialValues = todoDefaultValues;
+
+  const initialValues =
+    todo && type === 'Update'
+      ? {
+          ...todo,
+          startDateTime: new Date(todo.startDateTime),
+          projectId: todo.project._id,
+          estimatedHours: parseInt(todo.estimatedHours),
+        }
+      : todoDefaultValues;
   const router = useRouter();
 
   const { startUpload } = useUploadThing('imageUploader');
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof todoFormSchema>>({
     resolver: zodResolver(todoFormSchema),
     defaultValues: initialValues,
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof todoFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+
     let uploadedImageUrl = values.imageUrl;
     if (files.length > 0) {
       const uploadedImages = await startUpload(files);
@@ -73,8 +84,34 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
           path: '/profile',
         });
         if (newTodo) {
-          form.reset();
+          // form.reset();
           router.push(`/todos/${newTodo._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (type === 'Update') {
+      if (!todoId) {
+        router.back();
+        return;
+      }
+
+      try {
+        const updatedTodo = await updateTodo({
+          userId,
+          todo: {
+            ...values,
+            imageUrl: uploadedImageUrl,
+            _id: todoId,
+          },
+          path: `/todos/${todoId}`,
+        });
+
+        if (updatedTodo) {
+          // form.reset();
+          router.push(`/todos/${updatedTodo._id}`);
         }
       } catch (error) {
         console.log(error);

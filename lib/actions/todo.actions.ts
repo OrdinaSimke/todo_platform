@@ -2,15 +2,17 @@
 
 import {
   CreateTodoParams,
+  DeleteTodoParams,
   GetAllTodosParams,
   GetRelatedTodosByProjectParams,
+  UpdateTodoParams,
 } from '@/types';
 import { handleError } from '../utils';
 import { connectToDatabase } from '../database';
 import User from '../database/models/user.model';
 import Todo from '../database/models/todo.model';
 import Project from '../database/models/project.model';
-import Category from '../database/models/category.model';
+import { revalidatePath } from 'next/cache';
 
 const getProjectByName = async (name: string) => {
   return Project.findOne({ name: { $regex: name, $options: 'i' } });
@@ -80,7 +82,7 @@ export async function getAllTodos({
     const conditions = {
       $and: [
         titleCondition,
-        projectCondition ? { category: projectCondition._id } : {},
+        projectCondition ? { project: projectCondition._id } : {},
       ],
     };
 
@@ -97,6 +99,39 @@ export async function getAllTodos({
       data: JSON.parse(JSON.stringify(todos)),
       totalPages: Math.ceil(todosCount / limit),
     };
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function updateTodo({ userId, todo, path }: UpdateTodoParams) {
+  try {
+    await connectToDatabase();
+
+    const todoToUpdate = await Todo.findById(todo._id);
+    if (!todoToUpdate || todoToUpdate.organizer.toHexString() !== userId) {
+      throw new Error('Unauthorized or event not found');
+    }
+
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      todo._id,
+      { ...todo, project: todo.projectId },
+      { new: true }
+    );
+    revalidatePath(path);
+
+    return JSON.parse(JSON.stringify(updatedTodo));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function deleteTodo({ todoId, path }: DeleteTodoParams) {
+  try {
+    await connectToDatabase();
+
+    const deletedEvent = await Todo.findByIdAndDelete(todoId);
+    if (deletedEvent) revalidatePath(path);
   } catch (error) {
     handleError(error);
   }

@@ -2,18 +2,23 @@ import Collection from '@/components/shared/Collection';
 import { Button } from '@/components/ui/button';
 import { getAllTodos } from '@/lib/actions/todo.actions';
 import { SignedIn, UserButton, SignedOut } from '@clerk/nextjs';
+import { SearchParamProps } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import Search from '@/components/shared/Search';
+import ProjectFilter from '@/components/shared/ProjectFilter';
 
-export default async function Home() {
+export default async function Home({ searchParams }: SearchParamProps) {
+  const page = Number(searchParams?.page) || 1;
+  const searchText = (searchParams?.query as string) || '';
+  const project = (searchParams?.project as string) || '';
+
   const todos = await getAllTodos({
-    query: '',
-    project: '',
-    page: 1,
+    query: searchText,
+    project,
+    page,
     limit: 6,
   });
-
-  console.log('todos', todos);
 
   return (
     <>
@@ -44,27 +49,32 @@ export default async function Home() {
         id="todos"
         className="wrapper my-8 flex flex-col gap-8 md:gap-12"
       >
-        <h2 className="h2-bold">Trusted by 1000 of users</h2>
+        <h2 className="h2-bold">Overview of todos</h2>
 
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          <div className="flex w-32 justify-end gap-3">
-            <SignedIn>
-              <Collection
-                data={[]}
-                emptyTitle="No todos found"
-                emptyStateSubtext="Come back later"
-                collectionType="All_Todos"
-                limit={6}
-                page={1}
-                totalPages={2}
-              />
-            </SignedIn>
-            <SignedOut>
+          <Search />
+          <ProjectFilter />
+        </div>
+
+        <div className="flex w-full flex-col gap-5 md:flex-row">
+          <SignedIn>
+            <Collection
+              data={todos?.data}
+              emptyTitle="No todos found"
+              emptyStateSubtext="Come back later"
+              collectionType="All_Todos"
+              limit={6}
+              page={page}
+              totalPages={todos?.totalPages}
+            />
+          </SignedIn>
+          <SignedOut>
+            <div className="flex w-32 justify-end gap-3">
               <Button asChild className="rounded-full" size="lg">
                 <Link href="/sign-in">Login</Link>
               </Button>
-            </SignedOut>
-          </div>
+            </div>
+          </SignedOut>
         </div>
       </section>
     </>

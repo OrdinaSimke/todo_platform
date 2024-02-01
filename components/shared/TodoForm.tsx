@@ -24,17 +24,23 @@ import { useState } from 'react';
 import Image from 'next/image';
 import DatePicker from 'react-datepicker';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useUploadThing } from '@/lib/uploadthing';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import { useRouter } from 'next/navigation';
+import { createTodo } from '@/lib/actions/todo.actions';
 
 type TodoFormProps = {
-  userId: String;
+  userId: string;
   type: 'Create' | 'Update';
 };
 
 const TodoForm = ({ userId, type }: TodoFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const initialValues = todoDefaultValues;
+  const router = useRouter();
+
+  const { startUpload } = useUploadThing('imageUploader');
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof todoFormSchema>>({
@@ -43,11 +49,37 @@ const TodoForm = ({ userId, type }: TodoFormProps) => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof todoFormSchema>) {
+  async function onSubmit(values: z.infer<typeof todoFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    let uploadedImageUrl = values.imageUrl;
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files);
 
-    console.log(values);
+      if (!uploadedImages) {
+        return;
+      }
+
+      uploadedImageUrl = uploadedImages[0].url;
+    }
+    if (type === 'Create') {
+      try {
+        const newTodo = await createTodo({
+          todo: {
+            ...values,
+            imageUrl: uploadedImageUrl,
+          },
+          userId,
+          path: '/profile',
+        });
+        if (newTodo) {
+          form.reset();
+          router.push(`/todos/${newTodo._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   return (

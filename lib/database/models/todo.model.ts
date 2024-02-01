@@ -11,7 +11,7 @@ export interface ITodo extends Document {
   isPrivate: boolean;
   url?: string;
   project?: { _id: string; name: string };
-  user?: { _id: string; firstName: string; lastName: string };
+  organizer?: { _id: string; firstName: string; lastName: string };
 }
 
 const TodoSchema = new Schema({
@@ -24,7 +24,7 @@ const TodoSchema = new Schema({
   isPrivate: { type: Boolean, default: false },
   url: { type: String },
   project: { type: Schema.Types.ObjectId, ref: 'Project' },
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  organizer: { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
 const Todo = models.Todo || model('Todo', TodoSchema);

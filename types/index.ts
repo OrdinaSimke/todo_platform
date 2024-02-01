@@ -16,76 +16,71 @@ export type UpdateUserParams = {
 };
 
 // ====== EVENT PARAMS
-export type CreateEventParams = {
+export type CreateTodoParams = {
   userId: string;
-  event: {
+  todo: {
     title: string;
     description: string;
-    location: string;
     imageUrl: string;
     startDateTime: Date;
-    endDateTime: Date;
+    estimatedHours: number;
+    isPrivate: boolean;
     projectId: string;
-    price: string;
-    isFree: boolean;
     url: string;
   };
   path: string;
 };
 
-export type UpdateEventParams = {
+export type UpdateTodoParams = {
   userId: string;
-  event: {
+  todo: {
     _id: string;
     title: string;
-    imageUrl: string;
     description: string;
-    location: string;
+    imageUrl: string;
     startDateTime: Date;
-    endDateTime: Date;
-    projectyId: string;
-    price: string;
-    isFree: boolean;
+    estimatedHours: number;
+    isPrivate: boolean;
+    projectId: string;
     url: string;
   };
   path: string;
 };
 
-export type DeleteEventParams = {
-  eventId: string;
+export type DeleteTodoParams = {
+  todoId: string;
   path: string;
 };
 
-export type GetAllEventsParams = {
+export type GetAllTodosParams = {
   query: string;
   project: string;
   limit: number;
   page: number;
 };
 
-export type GetEventsByUserParams = {
+export type GetTodosByUserParams = {
   userId: string;
   limit?: number;
   page: number;
 };
 
-export type GetRelatedEventsByProjectParams = {
+export type GetRelatedTodosByProjectParams = {
   projectId: string;
-  eventId: string;
+  todoId: string;
   limit?: number;
   page: number | string;
 };
 
-export type Event = {
+export type Todo = {
   _id: string;
   title: string;
   description: string;
-  price: string;
-  isFree: boolean;
   imageUrl: string;
-  location: string;
   startDateTime: Date;
-  endDateTime: Date;
+  estimatedHours: string;
+  isPrivate: boolean;
+  projectId: string;
   url: string;
   organizer: {
     _id: string;

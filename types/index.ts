@@ -22,7 +22,9 @@ export type CreateTodoParams = {
     title: string;
     description: string;
     imageUrl: string;
-    startDateTime: Date;
+    startDateTime?: Date;
+    endDateTime?: Date;
+    deadline?: Date;
     estimatedHours: number;
     isPrivate: boolean;
     projectId: string;
@@ -38,7 +40,9 @@ export type UpdateTodoParams = {
     title: string;
     description: string;
     imageUrl: string;
-    startDateTime: Date;
+    startDateTime?: Date;
+    endDateTime?: Date;
+    deadline?: Date;
     estimatedHours: number;
     isPrivate: boolean;
     projectId: string;
@@ -77,7 +81,9 @@ export type Todo = {
   title: string;
   description: string;
   imageUrl: string;
-  startDateTime: Date;
+  startDateTime?: Date;
+  endDateTime?: Date;
+  deadline?: Date;
   estimatedHours: string;
   isPrivate: boolean;
   projectId: string;

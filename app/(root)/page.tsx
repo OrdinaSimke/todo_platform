@@ -20,6 +20,17 @@ export default async function Home({ searchParams }: SearchParamProps) {
     limit: 6,
   });
 
+  // AUTO PAGE REFRESH LOGIC IS IN search.tsx
+  // SEE CODE BELOW IN COMMENT
+  // useEffect(() => {
+  //   let currentUrl = currentUrlQuery({
+  //     params: searchParams.toString(),
+  //   });
+
+  //   router.push(currentUrl, { scroll: false });
+  // }, [searchParams, router]);
+  // ////////////////////////////////////////
+
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">

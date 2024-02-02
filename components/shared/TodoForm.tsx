@@ -30,6 +30,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/navigation';
 import { createTodo, updateTodo } from '@/lib/actions/todo.actions';
 import { ITodo } from '@/lib/database/models/todo.model';
+import { subMonths, addMonths } from 'date-fns';
 
 type TodoFormProps = {
   userId: string;
@@ -40,12 +41,16 @@ type TodoFormProps = {
 
 const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
+  // const deadline =
+  //   todo && type === 'Update' && todo.deadline
+  //     ? new Date(todo.deadline)
+  //     : undefined;
 
   const initialValues =
     todo && type === 'Update'
       ? {
           ...todo,
-          startDateTime: new Date(todo.startDateTime),
+          deadline: todo.deadline ? new Date(todo.deadline) : undefined,
           projectId: todo?.project?._id,
           estimatedHours: parseInt(todo.estimatedHours),
         }
@@ -78,6 +83,7 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
         const newTodo = await createTodo({
           todo: {
             ...values,
+            deadline: values.deadline === null ? undefined : values.deadline,
             imageUrl: uploadedImageUrl,
           },
           userId,
@@ -103,6 +109,7 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
           userId,
           todo: {
             ...values,
+            deadline: values.deadline === null ? undefined : values.deadline,
             imageUrl: uploadedImageUrl,
             _id: todoId,
           },
@@ -227,7 +234,7 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
-            name="startDateTime"
+            name="deadline"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -240,15 +247,22 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
                       className="filter-grey"
                     />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
-                      Start Date:
+                      Deadline:
                     </p>
                     <DatePicker
                       selected={field.value}
                       onChange={(date: Date) => field.onChange(date)}
                       showTimeSelect
                       timeInputLabel="Time"
-                      dateFormat="dd/MM/yyyy hh:mm"
+                      dateFormat="dd/MM/yyyy HH:mm"
+                      timeFormat="HH:mm"
                       wrapperClassName="datePicker"
+                      isClearable
+                      minDate={subMonths(new Date(), 0)}
+                      maxDate={addMonths(new Date(), 48)}
+                      showYearDropdown
+                      showMonthDropdown
+                      useShortMonthInDropdown
                     />
                   </div>
                 </FormControl>

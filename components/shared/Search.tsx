@@ -3,7 +3,11 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Input } from '../ui/input';
-import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils';
+import {
+  currentUrlQuery,
+  formUrlQuery,
+  removeKeysFromQuery,
+} from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const Search = () => {
@@ -33,6 +37,14 @@ const Search = () => {
 
   //   return () => clearTimeout(delayDebounceFn);
   // }, [query, searchParams, router]);
+
+  useEffect(() => {
+    let currentUrl = currentUrlQuery({
+      params: searchParams.toString(),
+    });
+
+    router.push(currentUrl, { scroll: false });
+  }, [searchParams, router]);
 
   const onChangeInput = (value: any) => {
     const delayDebounceFn = setTimeout(() => {

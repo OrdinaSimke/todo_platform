@@ -13,7 +13,7 @@ export const todoFormSchema = z.object({
       message: 'Description must be less than 400 characters.',
     }),
   imageUrl: z.string(),
-  startDateTime: z.date(),
+  deadline: z.date().or(z.null()),
   estimatedHours: z.coerce.number().int().positive(),
   projectId: z.string(),
   isPrivate: z.boolean(),

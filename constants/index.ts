@@ -17,7 +17,7 @@ export const todoDefaultValues = {
   title: '',
   description: '',
   imageUrl: '',
-  startDateTime: new Date(),
+  deadline: new Date(),
   estimatedHours: undefined,
   projectId: '',
   isPrivate: false,

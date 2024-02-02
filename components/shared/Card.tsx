@@ -51,9 +51,11 @@ const Card = ({ todo, hasOrderLink, hidePrice }: CardProps) => {
           </div>
         )}
 
-        <p className="p-medium-16 p-medium-18 text-grey-500">
-          {formatDateTime(todo.startDateTime).dateTime}
-        </p>
+        {todo.deadline && (
+          <p className="p-medium-16 p-medium-18 text-grey-500">
+            {formatDateTime(todo.deadline).dateTime}
+          </p>
+        )}
 
         <Link href={`/todos/${todo._id}`}>
           <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">

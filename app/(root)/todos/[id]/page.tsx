@@ -142,7 +142,7 @@ const TodoDetails = async ({
 
               <div className="flex flex-col gap-3">
                 <p className="p-bold-20 text-grey-600">Description:</p>
-                <p className="p-medium-16 lg:p-regular-18">
+                <p className="p-medium-16 lg:p-regular-18 whitespace-pre-wrap">
                   {todo.description}
                 </p>
                 <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">

@@ -33,23 +33,21 @@ const TodoDetails = async ({
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
-          {todo.imageUrl && (
-            <ZoomImage
-              src={todo.imageUrl}
-              alt="todo image"
-              className="h-full min-h-[300px] object-contain object-center cursor-pointer md:p-4 p-2"
-              width={1000}
-              height={1000}
-            />
-          )}
+          <ZoomImage
+            src={todo?.imageUrl ? todo.imageUrl : '/assets/icons/no-image.svg'}
+            alt="todo image"
+            className="h-full min-h-[300px] object-contain object-center cursor-pointer md:p-4 p-2"
+            width={todo?.imageUrl ? 1000 : 200}
+            height={todo?.imageUrl ? 1000 : 200}
+          />
 
-          <div className="flex w-full flex-col gap-8 p-5 md:p-10">
+          <div className="flex flex-col gap-8 p-5 md:p-10 ">
             <div className="flex flex-col gap-6">
               <div className="flex">
-                <h2 className="h2-bold">{todo.title}</h2>
+                <h2 className="h2-bold w-11/12">{todo.title}</h2>
 
                 {isTodoCreator && (
-                  <div className="right-5 flex ml-auto flex-col gap-4 rounded-xl p-3">
+                  <div className="right-5 flex ml-auto flex-col gap-4 rounded-xl p-3 w-1/12">
                     <Link href={`/todos/${todo._id}/update`}>
                       <Image
                         src="/assets/icons/edit.svg"

@@ -25,7 +25,7 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
       keysToRemove: [],
     });
 
-    router.push(newUrl, { scroll: false });
+    router.push(newUrl + '#todos', { scroll: true });
   };
 
   return (

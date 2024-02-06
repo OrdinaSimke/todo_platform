@@ -155,7 +155,10 @@ const TodoDetails = async ({
         </div>
       </section>
 
-      <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
+      <section
+        id="todos"
+        className="wrapper my-8 flex flex-col gap-8 md:gap-12"
+      >
         <h2 className="h2-bold">Related todos</h2>
         <Collection
           data={relatedTodos?.data}

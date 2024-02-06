@@ -22,6 +22,7 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
       params: searchParams.toString(),
       key: urlParamName || 'page',
       value: pageValue.toString(),
+      keysToRemove: [],
     });
 
     router.push(newUrl, { scroll: false });

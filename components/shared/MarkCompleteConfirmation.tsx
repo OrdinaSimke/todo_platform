@@ -2,6 +2,7 @@
 
 import { useTransition } from 'react';
 import Image from 'next/image';
+import { toast } from 'sonner';
 
 import {
   AlertDialog,
@@ -92,6 +93,15 @@ export const MarkCompleteConfirmation = ({
                     path: currentUrl,
                   });
 
+                  if (updatedTodo) {
+                    toast('Todo has been updated', {
+                      description: 'Jep jep',
+                      // action: {
+                      //   label: 'Undo',
+                      //   onClick: () => console.log('Undo'),
+                      // },
+                    });
+                  }
                   // if (updatedTodo) {
                   //   // router.push(`/todos/${updatedTodo._id}`);
                   //   //router.push(currentUrl, { scroll: false });

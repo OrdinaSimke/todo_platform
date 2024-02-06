@@ -69,7 +69,14 @@ const StatusFilter = () => {
       <SelectTrigger className="select-field">
         <SelectValue placeholder={status ? status : 'Status'} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent
+        ref={(ref) => {
+          if (!ref) return;
+          ref.ontouchstart = (e) => {
+            e.preventDefault();
+          };
+        }}
+      >
         {statusses.map((item) => (
           <SelectItem
             value={item.name}

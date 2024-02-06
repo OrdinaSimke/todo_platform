@@ -63,7 +63,14 @@ const ProjectFilter = () => {
       <SelectTrigger className="select-field">
         <SelectValue placeholder={projectValue ? projectValue : 'Project'} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent
+        ref={(ref) => {
+          if (!ref) return;
+          ref.ontouchstart = (e) => {
+            e.preventDefault();
+          };
+        }}
+      >
         <SelectItem value="All" className="select-item p-regular-14">
           All
         </SelectItem>

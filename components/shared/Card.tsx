@@ -29,7 +29,13 @@ const Card = ({ todo }: CardProps) => {
     >
       <Link
         href={`/todos/${todo._id}`}
-        style={{ backgroundImage: `url(${todo.imageUrl})` }}
+        style={{
+          backgroundImage: `url(${
+            todo.imageUrl ? todo.imageUrl : '/assets/icons/no-image.svg'
+          })`,
+          backgroundSize: `${todo.imageUrl ? 'auto' : '100px 100px'}`,
+          backgroundRepeat: 'no-repeat',
+        }}
         className="flex-center flex-grow bg-gray-50 bg-cover bg-center text-grey-500"
       />
       {/* IS TODO CREATOR ... */}

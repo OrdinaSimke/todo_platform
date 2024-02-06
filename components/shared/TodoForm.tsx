@@ -50,7 +50,7 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
     todo && type === 'Update'
       ? {
           ...todo,
-          deadline: todo.deadline ? new Date(todo.deadline) : undefined,
+          deadline: todo?.deadline ? new Date(todo.deadline) : undefined,
           projectId: todo?.project?._id,
           estimatedHours: parseInt(todo.estimatedHours),
         }
@@ -286,6 +286,7 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
                       {...field}
                       className="input-field"
                       placeholder="0"
+                      step="4"
                     />
                   </div>
                 </FormControl>

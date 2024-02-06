@@ -41,8 +41,8 @@ export const MarkCompleteConfirmation = ({
         <Image
           src={
             todo.isCompleted
-              ? '/assets/icons/unlock.svg'
-              : '/assets/icons/lock.svg'
+              ? '/assets/icons/lock.svg'
+              : '/assets/icons/unlock.svg'
           }
           alt="edit"
           width={20}

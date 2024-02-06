@@ -26,7 +26,7 @@ type DropdownProps = {
   onChangeHandler?: () => void;
 };
 
-const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
+const ProjectDropdown = ({ value, onChangeHandler }: DropdownProps) => {
   const [projects, setProjects] = useState<IProject[]>([]);
   const [newProject, setNewProject] = useState('');
 
@@ -53,7 +53,14 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
       <SelectTrigger className="select-field">
         <SelectValue placeholder="Project" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent
+        ref={(ref) => {
+          if (!ref) return;
+          ref.ontouchstart = (e) => {
+            e.preventDefault();
+          };
+        }}
+      >
         {projects.length > 0 &&
           projects.map((project) => (
             <SelectItem
@@ -96,4 +103,4 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
   );
 };
 
-export default Dropdown;
+export default ProjectDropdown;

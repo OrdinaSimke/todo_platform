@@ -18,7 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { todoFormSchema } from '@/lib/validator';
 import { todoDefaultValues } from '@/constants';
-import Dropdown from './ProjectDropdown';
+import ProjectDropdown from './ProjectDropdown';
 import { FileUploader } from './FileUploader';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -183,7 +183,7 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-2 py-2">
-                    <Dropdown
+                    <ProjectDropdown
                       onChangeHandler={field.onChange}
                       value={field.value}
                     />

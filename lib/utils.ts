@@ -61,10 +61,20 @@ export const formatDateTime = (dateString: Date) => {
 
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
-export function formUrlQuery({ params, key, value }: UrlQueryParams) {
+export function formUrlQuery({
+  params,
+  key,
+  value,
+  keysToRemove,
+}: UrlQueryParams) {
   const currentUrl = qs.parse(params);
 
   currentUrl[key] = value;
+
+  keysToRemove &&
+    keysToRemove.forEach((key) => {
+      delete currentUrl[key];
+    });
 
   return qs.stringifyUrl(
     {

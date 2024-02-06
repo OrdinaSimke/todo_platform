@@ -17,5 +17,6 @@ export const todoFormSchema = z.object({
   estimatedHours: z.coerce.number().int().positive(),
   projectId: z.string(),
   isPrivate: z.boolean(),
+  isCompleted: z.boolean(),
   url: z.string().url().or(z.literal('')),
 });

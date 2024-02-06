@@ -9,6 +9,9 @@ import Image from 'next/image';
 import { auth } from '@clerk/nextjs';
 import Link from 'next/link';
 import { DeleteConfirmation } from '@/components/shared/DeleteConfirmation';
+import { MarkCompleteConfirmation } from '@/components/shared/MarkCompleteConfirmation';
+
+// export const revalidate = 0;
 
 const TodoDetails = async ({
   params: { id },
@@ -57,6 +60,11 @@ const TodoDetails = async ({
                     </Link>
 
                     <DeleteConfirmation todoId={todo._id} />
+                    <MarkCompleteConfirmation
+                      todoId={todo._id}
+                      todo={todo}
+                      userId={userId}
+                    />
                   </div>
                 )}
               </div>

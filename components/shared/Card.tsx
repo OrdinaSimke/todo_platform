@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { DeleteConfirmation } from './DeleteConfirmation';
+import { MarkCompleteConfirmation } from './MarkCompleteConfirmation';
 
 type CardProps = {
   todo: ITodo;
@@ -12,14 +13,20 @@ type CardProps = {
   hidePrice?: boolean;
 };
 
-const Card = ({ todo, hasOrderLink, hidePrice }: CardProps) => {
+const Card = ({ todo }: CardProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
   const isTodoCreator = userId === todo?.organizer?._id.toString();
 
   return (
-    <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
+    <div
+      className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px] border-2 border-white"
+      style={{
+        backgroundColor: todo?.isCompleted ? '#F0FAF1' : 'inherit',
+        borderColor: todo?.isCompleted ? '#F0FAF1' : 'white',
+      }}
+    >
       <Link
         href={`/todos/${todo._id}`}
         style={{ backgroundImage: `url(${todo.imageUrl})` }}
@@ -39,17 +46,20 @@ const Card = ({ todo, hasOrderLink, hidePrice }: CardProps) => {
           </Link>
 
           <DeleteConfirmation todoId={todo._id} />
+          <MarkCompleteConfirmation
+            todoId={todo._id}
+            todo={todo}
+            userId={userId}
+          />
         </div>
       )}
 
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
-        {!hidePrice && (
-          <div className="flex gap-2">
-            <p className="p-semibold-14 rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
-              {todo?.project?.name}
-            </p>
-          </div>
-        )}
+        <div className="flex gap-2">
+          <p className="p-semibold-14 rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
+            {todo?.project?.name}
+          </p>
+        </div>
 
         {todo.deadline && (
           <p className="p-medium-16 p-medium-18 text-grey-500">

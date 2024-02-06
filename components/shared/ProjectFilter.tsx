@@ -36,11 +36,17 @@ const ProjectFilter = () => {
   const onSelectProject = (project: string) => {
     let newUrl = '';
 
+    newUrl = removeKeysFromQuery({
+      params: searchParams.toString(),
+      keysToRemove: ['page'],
+    });
+
     if (project && project !== 'All') {
       newUrl = formUrlQuery({
         params: searchParams.toString(),
         key: 'project',
         value: project,
+        keysToRemove: ['page'],
       });
     } else {
       newUrl = removeKeysFromQuery({

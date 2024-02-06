@@ -18,7 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { todoFormSchema } from '@/lib/validator';
 import { todoDefaultValues } from '@/constants';
-import Dropdown from './Dropdown';
+import Dropdown from './ProjectDropdown';
 import { FileUploader } from './FileUploader';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -87,10 +87,10 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
             imageUrl: uploadedImageUrl,
           },
           userId,
-          path: '/profile',
+          path: '/',
         });
         if (newTodo) {
-          // form.reset();
+          form.reset();
           router.push(`/todos/${newTodo._id}`);
         }
       } catch (error) {
@@ -113,7 +113,7 @@ const TodoForm = ({ userId, type, todo, todoId }: TodoFormProps) => {
             imageUrl: uploadedImageUrl,
             _id: todoId,
           },
-          path: `/todos/${todoId}`,
+          path: '/',
         });
 
         if (updatedTodo) {

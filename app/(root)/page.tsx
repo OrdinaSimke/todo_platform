@@ -7,29 +7,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Search from '@/components/shared/Search';
 import ProjectFilter from '@/components/shared/ProjectFilter';
+import StatusFilter from '@/components/shared/StatusFilter';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 3000;
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || '';
   const project = (searchParams?.project as string) || '';
+  const status = (searchParams?.status as string) || '';
 
   const todos = await getAllTodos({
     query: searchText,
     project,
     page,
+    status,
     limit: 6,
   });
-
-  // AUTO PAGE REFRESH LOGIC IS IN search.tsx
-  // SEE CODE BELOW IN COMMENT
-  // useEffect(() => {
-  //   let currentUrl = currentUrlQuery({
-  //     params: searchParams.toString(),
-  //   });
-
-  //   router.push(currentUrl, { scroll: false });
-  // }, [searchParams, router]);
-  // ////////////////////////////////////////
 
   return (
     <>
@@ -66,6 +61,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
           {/* <Filters /> */}
           <Search />
           <ProjectFilter />
+          <StatusFilter />
         </div>
 
         <div className="flex w-full flex-col gap-5 md:flex-row">

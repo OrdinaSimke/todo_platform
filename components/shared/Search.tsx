@@ -38,13 +38,13 @@ const Search = () => {
   //   return () => clearTimeout(delayDebounceFn);
   // }, [query, searchParams, router]);
 
-  useEffect(() => {
-    let currentUrl = currentUrlQuery({
-      params: searchParams.toString(),
-    });
+  // useEffect(() => {
+  //   let currentUrl = currentUrlQuery({
+  //     params: searchParams.toString(),
+  //   });
 
-    router.push(currentUrl, { scroll: false });
-  }, [searchParams, router]);
+  //   router.push(currentUrl, { scroll: false });
+  // }, [searchParams, router]);
 
   const onChangeInput = (value: any) => {
     const delayDebounceFn = setTimeout(() => {
@@ -55,6 +55,7 @@ const Search = () => {
           params: searchParams.toString(),
           key: 'query',
           value: value,
+          keysToRemove: ['page'],
         });
       } else {
         newUrl = removeKeysFromQuery({

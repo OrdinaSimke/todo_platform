@@ -21,5 +21,6 @@ export const todoDefaultValues = {
   estimatedHours: undefined,
   projectId: '',
   isPrivate: false,
+  isCompleted: false,
   url: '',
 };

@@ -27,6 +27,7 @@ export type CreateTodoParams = {
     deadline?: Date;
     estimatedHours: number;
     isPrivate: boolean;
+    isCompleted: boolean;
     projectId: string;
     url: string;
   };
@@ -45,10 +46,11 @@ export type UpdateTodoParams = {
     deadline?: Date;
     estimatedHours: number;
     isPrivate: boolean;
+    isCompleted: boolean;
     projectId: string;
     url: string;
   };
-  path: string;
+  path?: string;
 };
 
 export type DeleteTodoParams = {
@@ -61,6 +63,7 @@ export type GetAllTodosParams = {
   project: string;
   limit: number;
   page: number;
+  status: string;
 };
 
 export type GetTodosByUserParams = {
@@ -86,6 +89,7 @@ export type Todo = {
   deadline?: Date;
   estimatedHours: string;
   isPrivate: boolean;
+  isCompleted: boolean;
   projectId: string;
   url: string;
   organizer: {
@@ -137,6 +141,7 @@ export type UrlQueryParams = {
   params: string;
   key: string;
   value: string | null;
+  keysToRemove: string[];
 };
 
 export type RemoveUrlQueryParams = {

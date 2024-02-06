@@ -10,7 +10,7 @@ type CollectionProps = {
   limit: number;
   page: number | string;
   totalPages?: number;
-  collectionType?: 'Todos_Created' | 'My_Todos' | 'All_Todos';
+  collectionType?: 'Todos_Created' | 'My_Todos' | 'All_Todos' | 'Related_Todos';
   urlParamName?: string;
 };
 

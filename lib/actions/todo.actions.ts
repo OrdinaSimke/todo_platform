@@ -174,7 +174,7 @@ export async function getRelatedTodosByProject({
     };
 
     const todosQuery = Todo.find(conditions)
-      .sort({ createdAt: 'desc' })
+      .sort({ isCompleted: 1, deadline: 'asc' })
       .skip(skipAmount)
       .limit(limit);
 

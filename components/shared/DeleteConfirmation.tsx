@@ -3,6 +3,8 @@
 import { useTransition } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+// @ts-ignore
+import { toast } from 'sonner';
 
 import {
   AlertDialog,
@@ -47,7 +49,16 @@ export const DeleteConfirmation = ({ todoId }: { todoId: string }) => {
           <AlertDialogAction
             onClick={() =>
               startTransition(async () => {
-                await deleteTodo({ todoId, path: pathname });
+                const isDeleted = await deleteTodo({ todoId, path: pathname });
+                if (isDeleted) {
+                  toast('Todo has been deleted', {
+                    description: 'Jep jep',
+                    // action: {
+                    //   label: 'Undo',
+                    //   onClick: () => console.log('Undo'),
+                    // },
+                  });
+                }
               })
             }
           >

@@ -148,8 +148,12 @@ export async function deleteTodo({ todoId, path }: DeleteTodoParams) {
   try {
     await connectToDatabase();
 
-    const deletedEvent = await Todo.findByIdAndDelete(todoId);
-    if (deletedEvent) revalidatePath(path);
+    const deletedTodo = await Todo.findByIdAndDelete(todoId);
+    if (deletedTodo) {
+      revalidatePath(path);
+      return true;
+    }
+    if (!deletedTodo) return undefined;
   } catch (error) {
     handleError(error);
   }

@@ -2,6 +2,7 @@
 
 import { useTransition } from 'react';
 import Image from 'next/image';
+// @ts-ignore
 import { toast } from 'sonner';
 
 import {

@@ -1,7 +1,14 @@
 'use client';
 
 import React from 'react';
-import { DndContext } from '@dnd-kit/core';
+import {
+  DndContext,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 
 export const KanbanBoardContainer = ({ children }: React.PropsWithChildren) => {
   return (
@@ -31,5 +38,10 @@ export const KanbanBoardContainer = ({ children }: React.PropsWithChildren) => {
 };
 
 export const KanbanBoard = ({ children }: React.PropsWithChildren) => {
-  return <DndContext>{children}</DndContext>;
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor)
+  );
+  return <DndContext sensors={sensors}>{children}</DndContext>;
 };

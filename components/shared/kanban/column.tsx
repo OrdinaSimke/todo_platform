@@ -43,6 +43,8 @@ export const KanbanColumn = ({
         display: 'flex',
         flexDirection: 'column',
         padding: '0 16px',
+        flexBasis: '0',
+        flexGrow: '1',
       }}
     >
       <div style={{ padding: '12px' }}>

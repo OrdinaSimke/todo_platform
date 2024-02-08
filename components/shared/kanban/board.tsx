@@ -11,6 +11,7 @@ export const KanbanBoardContainer = ({ children }: React.PropsWithChildren) => {
 
         display: 'flex',
         justifyContent: 'column',
+
         // margin: '-32px',
       }}
     >

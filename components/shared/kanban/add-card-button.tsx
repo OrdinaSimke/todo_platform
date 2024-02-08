@@ -18,7 +18,6 @@ export const KanbanAddCardButton = ({
     <Button
       style={{
         margin: '16px',
-        backgroundColor: 'white',
       }}
       onClick={onClick}
     >

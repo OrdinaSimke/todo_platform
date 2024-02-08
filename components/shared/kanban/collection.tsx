@@ -69,9 +69,9 @@ const KanbanCollection = ({ todos, stages }: any) => {
                   </KanbanItem>
                 );
               })}
-              {!todoStages.todoStage.length && (
+              {!column.todos.length && (
                 <KanbanAddCardButton
-                  onClick={() => handleAddCard({ stageId: 'todo' })}
+                  onClick={() => handleAddCard({ stageId: column.name })}
                 />
               )}
             </KanbanColumn>

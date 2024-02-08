@@ -29,7 +29,9 @@ const TodoCard = ({
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>
+          <p className="whitespace-pre-wrap">{description}</p>
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Badge>{formatDateTime(deadline).monthDayYear}</Badge>

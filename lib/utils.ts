@@ -13,7 +13,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formatDateTime = (dateString: Date) => {
+export const formatDateTime = (dateString: any) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
     month: 'short', // abbreviated month name (e.g., 'Oct')
@@ -37,6 +37,12 @@ export const formatDateTime = (dateString: Date) => {
     hour12: false, // use 12-hour clock (true) or 24-hour clock (false)
   };
 
+  const monthDayYearOptions: Intl.DateTimeFormatOptions = {
+    month: 'short', // abbreviated month name (e.g., 'Oct')
+    day: 'numeric', // numeric day of the month (e.g., '25')
+    year: 'numeric', // numeric year (e.g., '2023')
+  };
+
   const formattedDateTime: string = new Date(dateString).toLocaleString(
     'nl-BE',
     dateTimeOptions
@@ -52,10 +58,16 @@ export const formatDateTime = (dateString: Date) => {
     timeOptions
   );
 
+  const monthDayYear: string = new Date(dateString).toLocaleString(
+    'nl-BE',
+    monthDayYearOptions
+  );
+
   return {
     dateTime: formattedDateTime,
     dateOnly: formattedDate,
     timeOnly: formattedTime,
+    monthDayYear: monthDayYear,
   };
 };
 

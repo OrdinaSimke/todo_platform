@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React from 'react';
 import { DeleteConfirmation } from './DeleteConfirmation';
 import { MarkCompleteConfirmation } from './MarkCompleteConfirmation';
+import { Badge } from '../ui/badge';
 
 type CardProps = {
   todo: ITodo;
@@ -76,9 +77,9 @@ const Card = ({ todo }: CardProps) => {
         </div>
 
         {todo.deadline && (
-          <p className="p-medium-16 p-medium-18 text-grey-500">
-            {formatDateTime(todo.deadline).dateTime}
-          </p>
+          <Badge style={{ width: '100px', justifyContent: 'center' }}>
+            {formatDateTime(todo.deadline).monthDayYear}
+          </Badge>
         )}
 
         <Link href={`/todos/${todo._id}`}>

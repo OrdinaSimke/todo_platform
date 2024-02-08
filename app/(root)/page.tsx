@@ -10,7 +10,7 @@ import ProjectFilter from '@/components/shared/ProjectFilter';
 import StatusFilter from '@/components/shared/StatusFilter';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 3000;
+// export const revalidate = 3000;
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;

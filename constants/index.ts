@@ -8,8 +8,8 @@ export const headerLinks = [
     route: '/todos/create',
   },
   {
-    label: 'My Profile',
-    route: '/profile',
+    label: 'Kanban',
+    route: '/kanban',
   },
 ];
 

@@ -70,7 +70,14 @@ export const getTodoById = async (todoId: string) => {
 };
 
 export const getAllTodos = cache(
-  async ({ query, limit = 6, page, project, status }: GetAllTodosParams) => {
+  async ({
+    query,
+    limit = 6,
+    page,
+    project,
+    status,
+    path,
+  }: GetAllTodosParams) => {
     try {
       await connectToDatabase();
 
@@ -102,12 +109,14 @@ export const getAllTodos = cache(
 
       const skipAmount = (Number(page) - 1) * limit;
       const todosQuery = Todo.find(conditions)
-        .sort({ createdAt: 'desc' })
+        .sort({ deadline: 'desc' })
         .skip(skipAmount)
         .limit(limit);
 
       const todos = await populateTodo(todosQuery);
       const todosCount = await Todo.countDocuments(conditions);
+
+      // if (path) revalidatePath(path);
 
       return {
         data: JSON.parse(JSON.stringify(todos)),

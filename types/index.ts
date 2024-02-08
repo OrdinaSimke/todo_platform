@@ -64,6 +64,7 @@ export type GetAllTodosParams = {
   limit: number;
   page: number;
   status: string;
+  path?: string;
 };
 
 export type GetTodosByUserParams = {
@@ -108,32 +109,9 @@ export type CreateProjectParams = {
   projectName: string;
 };
 
-// ====== ORDER PARAMS
-export type CheckoutOrderParams = {
-  eventTitle: string;
-  eventId: string;
-  price: string;
-  isFree: boolean;
-  buyerId: string;
-};
-
-export type CreateOrderParams = {
-  stripeId: string;
-  eventId: string;
-  buyerId: string;
-  totalAmount: string;
-  createdAt: Date;
-};
-
-export type GetOrdersByEventParams = {
-  eventId: string;
-  searchString: string;
-};
-
-export type GetOrdersByUserParams = {
-  userId: string | null;
-  limit?: number;
-  page: string | number | null;
+// ====== STAGE PARAMS
+export type CreateStageParams = {
+  name: string;
 };
 
 // ====== URL QUERY PARAMS

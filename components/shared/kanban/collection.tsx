@@ -6,11 +6,14 @@ import {
 } from '@/components/shared/kanban/board';
 import KanbanColumn from '@/components/shared/kanban/column';
 import KanbanItem from '@/components/shared/kanban/item';
-import { useMemo } from 'react';
+import { Children, useMemo } from 'react';
 import TodoCard from './card';
 import { KanbanAddCardButton } from './add-card-button';
+import { DragEndEvent } from '@dnd-kit/core';
+import { BackgroundTasksApiRequestFactory } from 'svix/dist/openapi/apis/BackgroundTasksApi';
+import { updatePartOfTodo } from '@/lib/actions/todo.actions';
 
-const KanbanCollection = ({ todos, stages }: any) => {
+const KanbanCollection = ({ children, todos, stages }: any) => {
   const todoStages = useMemo(() => {
     if (!todos?.data || !stages?.data) {
       return {
@@ -46,39 +49,72 @@ const KanbanCollection = ({ todos, stages }: any) => {
 
   const handleAddCard = (args: { stageId: string }) => {};
 
+  const handleOnDragEnd = async (event: DragEndEvent) => {
+    let stageId = event.over?.id as undefined | string | null;
+    const todoId = event.active.id as string;
+    const todoStageId = event.active.data.current?.stageId;
+
+    if (todoStageId === stageId) return;
+
+    // if (stageId === 'Todo') {
+    //   stageId = null;
+    // }
+
+    try {
+      console.log('test');
+      const updatedTodo = await updatePartOfTodo({
+        todoId: todoId,
+        params: { stageId: stageId },
+        path: '/',
+      });
+
+      if (updatedTodo) {
+        console.log(updatedTodo);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <KanbanBoardContainer>
-      <KanbanBoard>
-        {todoStages.columns?.map((column) => {
-          return (
-            <KanbanColumn
-              key={column.name}
-              id={column.name}
-              title={column.name}
-              count={column.todos.length}
-              onAddClick={() => handleAddCard({ stageId: column.name })}
-            >
-              {column.todos.map((todo: any) => {
-                return (
-                  <KanbanItem
-                    key={todo._id}
-                    id={todo._id}
-                    data={{ ...todo, stageId: column.name }}
-                  >
-                    <TodoCard {...todo} dueDate={todo.deadline || undefined} />
-                  </KanbanItem>
-                );
-              })}
-              {!column.todos.length && (
-                <KanbanAddCardButton
-                  onClick={() => handleAddCard({ stageId: column.name })}
-                />
-              )}
-            </KanbanColumn>
-          );
-        })}
-      </KanbanBoard>
-    </KanbanBoardContainer>
+    <>
+      <KanbanBoardContainer>
+        <KanbanBoard onDragEnd={handleOnDragEnd}>
+          {todoStages.columns?.map((column) => {
+            return (
+              <KanbanColumn
+                key={column.name}
+                id={column.name}
+                title={column.name}
+                count={column.todos.length}
+                onAddClick={() => handleAddCard({ stageId: column.name })}
+              >
+                {column.todos.map((todo: any) => {
+                  return (
+                    <KanbanItem
+                      key={todo._id}
+                      id={todo._id}
+                      data={{ ...todo, stageId: column.name }}
+                    >
+                      <TodoCard
+                        {...todo}
+                        dueDate={todo.deadline || undefined}
+                      />
+                    </KanbanItem>
+                  );
+                })}
+                {!column.todos.length && (
+                  <KanbanAddCardButton
+                    onClick={() => handleAddCard({ stageId: column.name })}
+                  />
+                )}
+              </KanbanColumn>
+            );
+          })}
+        </KanbanBoard>
+      </KanbanBoardContainer>
+      {children}
+    </>
   );
 };
 

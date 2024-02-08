@@ -102,6 +102,7 @@ export type Todo = {
     _id: string;
     name: string;
   };
+  stageId: string;
 };
 
 // ====== PROJECT PARAMS

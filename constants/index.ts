@@ -23,4 +23,5 @@ export const todoDefaultValues = {
   isPrivate: false,
   isCompleted: false,
   url: '',
+  stage: 'Todo',
 };

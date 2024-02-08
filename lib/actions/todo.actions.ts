@@ -153,6 +153,25 @@ export const updateTodo = cache(
   }
 );
 
+export const updatePartOfTodo = cache(async ({ todoId, params, path }: any) => {
+  try {
+    await connectToDatabase();
+    console.log(params);
+    const updatedTodo = await Todo.findByIdAndUpdate(todoId, params, {
+      new: true,
+      strict: false,
+    });
+
+    if (path) revalidatePath(path);
+
+    console.log('updatedTodo', updatedTodo);
+
+    return JSON.parse(JSON.stringify(updatedTodo));
+  } catch (error) {
+    handleError(error);
+  }
+});
+
 export async function deleteTodo({ todoId, path }: DeleteTodoParams) {
   try {
     await connectToDatabase();

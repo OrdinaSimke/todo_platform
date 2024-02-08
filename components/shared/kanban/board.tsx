@@ -37,11 +37,18 @@ export const KanbanBoardContainer = ({ children }: React.PropsWithChildren) => {
   );
 };
 
-export const KanbanBoard = ({ children }: React.PropsWithChildren) => {
+export const KanbanBoard = ({
+  children,
+  onDragEnd,
+}: React.PropsWithChildren<any>) => {
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
     useSensor(KeyboardSensor)
   );
-  return <DndContext sensors={sensors}>{children}</DndContext>;
+  return (
+    <DndContext sensors={sensors} onDragEnd={onDragEnd}>
+      {children}
+    </DndContext>
+  );
 };

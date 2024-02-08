@@ -30,7 +30,8 @@ const TodoCard = ({
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>
-          <p className="whitespace-pre-wrap">{description}</p>
+          {/* <p className="whitespace-pre-wrap">{description}</p> */}
+          <span className="whitespace-pre-wrap">{description}</span>
         </CardDescription>
       </CardHeader>
       <CardContent>

@@ -15,6 +15,7 @@ export interface ITodo extends Document {
   url?: string;
   project?: { _id: string; name: string };
   organizer?: { _id: string; firstName: string; lastName: string };
+  stageId?: string;
 }
 
 const TodoSchema = new Schema({
@@ -31,6 +32,7 @@ const TodoSchema = new Schema({
   url: { type: String },
   project: { type: Schema.Types.ObjectId, ref: 'Project' },
   organizer: { type: Schema.Types.ObjectId, ref: 'User' },
+  stageId: { type: String },
 });
 
 const Todo = models.Todo || model('Todo', TodoSchema);

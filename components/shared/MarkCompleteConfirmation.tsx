@@ -96,7 +96,7 @@ export const MarkCompleteConfirmation = ({
 
                   if (updatedTodo) {
                     toast('Todo has been updated', {
-                      description: 'Jep jep',
+                      description: 'Success',
                       // action: {
                       //   label: 'Undo',
                       //   onClick: () => console.log('Undo'),

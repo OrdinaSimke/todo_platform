@@ -52,7 +52,7 @@ export const DeleteConfirmation = ({ todoId }: { todoId: string }) => {
                 const isDeleted = await deleteTodo({ todoId, path: pathname });
                 if (isDeleted) {
                   toast('Todo has been deleted', {
-                    description: 'Jep jep',
+                    description: 'Success',
                     // action: {
                     //   label: 'Undo',
                     //   onClick: () => console.log('Undo'),

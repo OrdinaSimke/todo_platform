@@ -27,7 +27,6 @@ const UpdateTodo = async () => {
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py10">
-        <h3 className="wrapper h3-bold text-center sm:text-left">Kanban</h3>
         <KanbanCollection todos={todos} stages={stages}></KanbanCollection>
       </section>
     </>

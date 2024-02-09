@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -7,7 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { formatDateTime } from '@/lib/utils';
+import Image from 'next/image';
 
 type TodoCardProps = {
   _id: string;
@@ -16,6 +19,7 @@ type TodoCardProps = {
   description: string;
   deadline?: string;
   users?: any;
+  stageId?: string;
 };
 
 const TodoCard = ({
@@ -24,18 +28,39 @@ const TodoCard = ({
   description,
   deadline,
   users,
+  stageId,
 }: TodoCardProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>
-          {/* <p className="whitespace-pre-wrap">{description}</p> */}
-          <span className="whitespace-pre-wrap">{description}</span>
+        <CardTitle className="whitespace-pre-wrap float-left">
+          {title}
+          <Image
+            src="/assets/icons/three-dot.svg"
+            alt="edit"
+            width={32}
+            height={32}
+            className="float-right cursor-pointer"
+          />
+        </CardTitle>
+        <Separator />
+        <CardDescription className="pt-2 whitespace-pre-wrap">
+          {description}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Badge>{formatDateTime(deadline).monthDayYear}</Badge>
+        <Badge
+          style={{
+            backgroundColor:
+              stageId === 'Done'
+                ? '#227766'
+                : !deadline || (deadline && new Date(deadline) < new Date())
+                ? 'red'
+                : 'auto',
+          }}
+        >
+          {formatDateTime(deadline).monthDayYear}
+        </Badge>
       </CardContent>
       {/* <CardFooter></CardFooter> */}
     </Card>

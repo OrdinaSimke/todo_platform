@@ -61,15 +61,13 @@ const KanbanCollection = ({ children, todos, stages }: any) => {
     // }
 
     try {
-      console.log('test');
       const updatedTodo = await updatePartOfTodo({
         todoId: todoId,
         params: { stageId: stageId },
-        path: '/',
+        path: '/kanban',
       });
 
       if (updatedTodo) {
-        console.log(updatedTodo);
       }
     } catch (error) {
       console.log(error);
@@ -98,7 +96,7 @@ const KanbanCollection = ({ children, todos, stages }: any) => {
                     >
                       <TodoCard
                         {...todo}
-                        dueDate={todo.deadline || undefined}
+                        deadline={todo.deadline || undefined}
                       />
                     </KanbanItem>
                   );

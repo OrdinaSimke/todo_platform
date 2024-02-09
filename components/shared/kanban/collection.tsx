@@ -10,10 +10,15 @@ import { Children, useMemo } from 'react';
 import TodoCard from './card';
 import { KanbanAddCardButton } from './add-card-button';
 import { DragEndEvent } from '@dnd-kit/core';
-import { BackgroundTasksApiRequestFactory } from 'svix/dist/openapi/apis/BackgroundTasksApi';
 import { updatePartOfTodo } from '@/lib/actions/todo.actions';
 
-const KanbanCollection = ({ children, todos, stages }: any) => {
+const KanbanCollection = ({
+  children,
+  todos,
+  stages,
+  users,
+  currentUserId,
+}: any) => {
   const todoStages = useMemo(() => {
     if (!todos?.data || !stages?.data) {
       return {
@@ -56,10 +61,6 @@ const KanbanCollection = ({ children, todos, stages }: any) => {
 
     if (todoStageId === stageId) return;
 
-    // if (stageId === 'Todo') {
-    //   stageId = null;
-    // }
-
     try {
       const updatedTodo = await updatePartOfTodo({
         todoId: todoId,
@@ -96,7 +97,8 @@ const KanbanCollection = ({ children, todos, stages }: any) => {
                     >
                       <TodoCard
                         {...todo}
-                        deadline={todo.deadline || undefined}
+                        users={users}
+                        currentUserId={currentUserId}
                       />
                     </KanbanItem>
                   );

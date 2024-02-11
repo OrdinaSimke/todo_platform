@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import React from 'react';
 
 interface Props {
@@ -21,7 +22,11 @@ export const KanbanAddCardButton = ({
       }}
       onClick={onClick}
     >
-      {children ?? <p>Add new card</p>}
+      {children ?? (
+        <Link href="/todos/create">
+          <p>Add new card</p>
+        </Link>
+      )}
     </Button>
   );
 };

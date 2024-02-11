@@ -9,6 +9,7 @@ import {
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
 import { useDroppable, UseDroppableArguments } from '@dnd-kit/core';
+import Link from 'next/link';
 import React from 'react';
 import { any } from 'zod';
 
@@ -45,6 +46,7 @@ export const KanbanColumn = ({
         padding: '0 16px',
         flexBasis: '0',
         flexGrow: '1',
+        minWidth: '300px',
       }}
     >
       <div style={{ padding: '12px' }}>
@@ -75,13 +77,15 @@ export const KanbanColumn = ({
                 {count}
               </Badge>
             }
-            <Avatar onClick={onAddClickHandler}>
-              <AvatarFallback
-                style={{ backgroundColor: '#999', color: '#fff' }}
-              >
-                +
-              </AvatarFallback>
-            </Avatar>
+            <Link href="/todos/create">
+              <Avatar onClick={onAddClickHandler}>
+                <AvatarFallback
+                  style={{ backgroundColor: '#999', color: '#fff' }}
+                >
+                  +
+                </AvatarFallback>
+              </Avatar>
+            </Link>
           </div>
           {description}
         </div>

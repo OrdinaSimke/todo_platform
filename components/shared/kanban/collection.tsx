@@ -97,6 +97,7 @@ const KanbanCollection = ({
                     >
                       <TodoCard
                         {...todo}
+                        todo={todo}
                         users={users}
                         currentUserId={currentUserId}
                       />

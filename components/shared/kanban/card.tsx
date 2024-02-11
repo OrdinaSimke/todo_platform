@@ -12,8 +12,8 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { updatePartOfTodo } from '@/lib/actions/todo.actions';
 import { formatDateTime } from '@/lib/utils';
-import { auth } from '@clerk/nextjs';
 import Image from 'next/image';
+import { MarkCompleteConfirmation } from '../MarkCompleteConfirmation';
 
 type TodoCardProps = {
   _id: string;
@@ -25,6 +25,7 @@ type TodoCardProps = {
   stageId?: string;
   users?: any;
   currentUserId?: string;
+  todo: any;
 };
 
 const TodoCard = ({
@@ -36,6 +37,7 @@ const TodoCard = ({
   stageId,
   users,
   currentUserId,
+  todo,
 }: TodoCardProps) => {
   const handleClickAssign = async () => {
     try {
@@ -46,7 +48,7 @@ const TodoCard = ({
       });
 
       if (updatedTodo) {
-        console.log('updated', updatedTodo);
+        // console.log('updated', updatedTodo);
       }
     } catch (error) {
       console.log(error);
@@ -98,6 +100,28 @@ const TodoCard = ({
         >
           {formatDateTime(deadline).monthDayYear}
         </Badge>
+        {stageId === 'Done' && (
+          <Badge
+            style={{
+              backgroundColor: '#eee',
+              color: '#333',
+              cursor: 'pointer',
+            }}
+            onPointerDown={(e) => {
+              e.preventDefault();
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleClickAssign();
+            }}
+          >
+            <MarkCompleteConfirmation
+              todo={todo}
+              todoId={_id}
+              userId={currentUserId}
+            />
+          </Badge>
+        )}
         {!assigneeId && (
           <Badge
             style={{

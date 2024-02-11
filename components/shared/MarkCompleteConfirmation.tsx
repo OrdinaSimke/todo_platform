@@ -41,8 +41,8 @@ export const MarkCompleteConfirmation = ({
         <Image
           src={
             todo.isCompleted
-              ? '/assets/icons/lock.svg'
-              : '/assets/icons/unlock.svg'
+              ? '/assets/icons/unlock.svg'
+              : '/assets/icons/lock.svg'
           }
           alt="edit"
           width={20}
@@ -59,8 +59,8 @@ export const MarkCompleteConfirmation = ({
           </AlertDialogTitle>
           <AlertDialogDescription className="p-regular-16 text-grey-600">
             {todo.isCompleted
-              ? 'This will show the todo in the list'
-              : 'This will hide the todo from the list'}
+              ? 'This will show the todo in the kanban'
+              : 'This will hide the todo from the kanban'}
           </AlertDialogDescription>
         </AlertDialogHeader>
 

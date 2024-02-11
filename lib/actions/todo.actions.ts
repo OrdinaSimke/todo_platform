@@ -116,7 +116,7 @@ export const getAllTodos = cache(
       const todos = await populateTodo(todosQuery);
       const todosCount = await Todo.countDocuments(conditions);
 
-      // if (path) revalidatePath(path);
+      if (path) revalidatePath(path);
 
       return {
         data: JSON.parse(JSON.stringify(todos)),

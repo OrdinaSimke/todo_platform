@@ -13,7 +13,7 @@ const UpdateTodo = async () => {
   const project = '';
   const page = 1;
   const limit = 999;
-  const status = '';
+  const status = 'Open';
 
   const todos = await getAllTodos({
     query: searchText,
